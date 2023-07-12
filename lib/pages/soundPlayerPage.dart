@@ -16,12 +16,16 @@ class _PlayRouteState extends State<PlayRoute>
   late AudioCache cache;
   bool initialPlay=true;
   late bool playing;
+  
   @override
   void initState()
   {
     super.initState();
     player=AudioPlayer();
-    player.setSource(AssetSource('audio/${widget.sound}.mp3'));
+    //player.setSource(AssetSource('audio/${widget.sound}.mp3'));
+    player.play(AssetSource('audio/${widget.sound}.mp3'));
+    //player.play(DeviceFileSource('assets/audio/${widget.sound}.mp3'));
+    player.setVolume(1);
     cache=AudioCache();
   }
   @override
@@ -34,8 +38,13 @@ class _PlayRouteState extends State<PlayRoute>
   {
     if(initialPlay)
     {
-      playing=true;
-      initialPlay=false;
+      setState(()
+      {
+        playing=true;
+        initialPlay=false;
+      });
+      //playing=true;
+      //initialPlay=false;
     }
     return InkWell
     (
